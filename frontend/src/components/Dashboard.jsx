@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-const API = import.meta.env.VITE_API_URL || 'http://localhost:3001';
+const API = import.meta.env.VITE_API_URL || '';
 
 function ScoreCircle({ score, size = 'md' }) {
   const color = score >= 70 ? 'text-green-500' : score >= 40 ? 'text-yellow-500' : 'text-red-500';

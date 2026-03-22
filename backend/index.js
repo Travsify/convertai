@@ -379,11 +379,24 @@ app.get('/api/stats', optionalAuth, (req, res) => {
   res.json(stats);
 });
 
+// Serve React frontend in production
+const path = require('path');
+const fs = require('fs');
+const frontendDist = path.join(__dirname, '../frontend/dist');
+if (fs.existsSync(frontendDist)) {
+  app.use(express.static(frontendDist));
+  app.get('*', (req, res, next) => {
+    if (req.path.startsWith('/api/')) return next();
+    res.sendFile(path.join(frontendDist, 'index.html'));
+  });
+}
+
 // Initialize DB then start server
 initDB().then(() => {
   app.listen(PORT, () => {
-    console.log(`ConvertAI backend running on http://localhost:${PORT}`);
+    console.log(`ConvertAI running on http://localhost:${PORT}`);
     console.log(`Stripe configured: ${!!STRIPE_SECRET_KEY}`);
+    console.log(`Frontend: ${fs.existsSync(frontendDist) ? 'served from dist' : 'not built'}`);
   });
 }).catch(err => {
   console.error('Failed to initialize database:', err);

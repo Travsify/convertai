@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-const API = import.meta.env.VITE_API_URL || 'http://localhost:3001';
+const API = import.meta.env.VITE_API_URL || '';
 
 function ScoreCircle({ score }) {
   const isGood = score >= 70;

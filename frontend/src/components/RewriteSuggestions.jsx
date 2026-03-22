@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-const API = import.meta.env.VITE_API_URL || 'http://localhost:3001';
+const API = import.meta.env.VITE_API_URL || '';
 
 function ScoreBadge({ score }) {
   const color = score >= 70 ? 'bg-green-100 text-green-700 border-green-200'
